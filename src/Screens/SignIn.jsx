@@ -13,7 +13,6 @@ const SignIn = () => {
 
   const [errorMessage, setErrorMessage] = useState([]);
   // const [defaultAccount, setDefaultAccount] = useState([]);
-  const [connButtonText, setConnButtonText] = useState("Connect Wallet");
   const [currentContractVal, setCurrentContractVal] = useState([]);
   const [start, setStart] = useState(0);
   const [update, setUpdate] = useState(0);
@@ -21,7 +20,9 @@ const SignIn = () => {
   const [batch, setBatch] = useState([]);
   const [role, setRole] = useState("");
 
-  const { user, acc, prov, sig, contr, authCon } = React.useContext(Context);
+  const { user, acc, prov, sig, contr, authCon, connButton } =
+    React.useContext(Context);
+  const [connButtonText, setConnButtonText] = connButton;
   const [provider, setProvider] = prov;
   const [signer, setSigner] = sig;
   const [contract, setContract] = contr;
@@ -242,7 +243,9 @@ const SignIn = () => {
   return (
     <div className="container">
       <div>
-        <button onClick={connectWalletHandler}>{connButtonText}</button>
+        <button className="btn btn-primary" onClick={connectWalletHandler}>
+          {connButtonText}
+        </button>
         <h3>Address: {defaultAccount}</h3>
         {errorMessage}
       </div>

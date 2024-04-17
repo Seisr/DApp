@@ -234,20 +234,20 @@ const Result = () => {
     console.log(checkRole);
   };
 
-  const setRoleAdd = async (event) => {
-    event.preventDefault();
-    let addr = event.target.address1.value;
-    let role = event.target.role1.value;
-    await authContract.addRole(addr, role);
-    console.log(addr);
-    console.log(role);
-  };
+  // const setRoleAdd = async (event) => {
+  //   event.preventDefault();
+  //   let addr = event.target.address1.value;
+  //   let role = event.target.role1.value;
+  //   await authContract.addRole(addr, role);
+  //   console.log(addr);
+  //   console.log(role);
+  // };
   return (
     <div className="container">
-      <h3>"Get/Set Interaction with contract"</h3>
+      {/* <h3>"Get/Set Interaction with contract"</h3>
       <button onClick={connectWalletHandler}>{connButtonText}</button>
-      <h3>Address: {defaultAccount}</h3>
-      <form onSubmit={setRoleAdd}>
+      <h3>Address: {defaultAccount}</h3> */}
+      {/* <form onSubmit={setRoleAdd}>
         <label>Address</label>
         <input id="address1" type="text"></input>
         <label>Role</label>
@@ -256,17 +256,22 @@ const Result = () => {
           <option value="student">Student</option>
         </select>
         <button type={"submit"}>Set role</button>
-      </form>
-      <p>CheckRole2</p>
-      <button onClick={checkRole2}>CheckRole2</button>
+      </form> */}
+      {/* <button className="btn btn-primary" onClick={checkRole2}>
+        CheckRole2
+      </button>
       <p>Check is has role Teacher</p>
       <form onSubmit={checkRole}>
         <label>Address</label>
         <input id="authAddr" type="text"></input>
-        <button type={"submit"}>Check role teacher</button>
-      </form>
+        <button className="btn btn-primary" type={"submit"}>
+          Check role teacher
+        </button>
+      </form> */}
       <form onSubmit={getAll}>
-        <button type={"submit"}>Get All</button>
+        <button className="btn btn-primary" type={"submit"}>
+          Get All
+        </button>
       </form>
 
       <table className="table">
@@ -312,7 +317,9 @@ const Result = () => {
       <form onSubmit={deleteRecord}>
         <label htmlFor="idRec">ID Record</label>
         <input id="idRec"></input>
-        <button type={"submit"}>Delete</button>
+        <button className="btn btn-danger" type={"submit"}>
+          Delete
+        </button>
       </form>
     </div>
   );

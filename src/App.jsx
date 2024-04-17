@@ -10,10 +10,12 @@ import SignIn from "./Screens/SignIn";
 import Result from "./Screens/Result/Result";
 import AddResult from "./Screens/AddResult/AddResult";
 import Home from "./Screens/Home";
+import Manage from "./Screens/Manage/Manage";
 import Auth2_abi from "./abi//Auth2_abi.json";
 import "bootstrap/dist/css/bootstrap.css";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
+import Main from "./Screens/Main";
 const ethers = require("ethers");
 
 export const Context = React.createContext();
@@ -26,6 +28,7 @@ const SimpleStore = () => {
   const [contract, setContract] = useState(null);
   const [authContract, setAuthContract] = useState(null);
   const [role, setRole] = useState("");
+  const [connButtonText, setConnButtonText] = useState("Connect Wallet");
 
   return (
     <Context.Provider
@@ -37,21 +40,17 @@ const SimpleStore = () => {
         contr: [contract, setContract],
         authCon: [authContract, setAuthContract],
         rol: [role, setRole],
+        connButton: [connButtonText, setConnButtonText],
       }}
     >
       <>
         <Header />
-        <h1>{currentUser ? "User" : "No user"}</h1>
-        <h1>{defaultAccount ? "Acc" : "No acc"}</h1>
-        <h1>{provider ? "Prov" : "No Prov"}</h1>
-        <h1>{signer ? "Signer" : "No Sign"}</h1>
-        <h1>{contract ? "Contract" : "No Contr"}</h1>
-        <h1>{authContract ? "AuthContract" : "No authCon"}</h1>
         <Routes>
-          <Route path="/" element={<Result />} />
+          <Route path="/" element={<Main />} />
           <Route path="/result" element={<Result />} />
           <Route path="/add-result" element={<AddResult />} />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/manage" element={<Manage />} />
         </Routes>
       </>
     </Context.Provider>

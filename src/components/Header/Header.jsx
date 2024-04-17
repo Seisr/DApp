@@ -11,11 +11,14 @@ import { Context } from "../../App";
 
 const Header = () => {
   //   let role = "teacher";
-  const { rol, acc, authCon } = React.useContext(Context);
+  const { rol, acc, authCon, user, connButton } = React.useContext(Context);
 
   const [authContract, setAuthContract] = authCon;
   const [defaultAccount, setDefaultAccount] = acc;
+  const [currentUser, setCurrentUser] = user;
   const [role, setRole] = rol;
+  const [connButtonText, setConnButtonText] = connButton;
+
   const checkRole = async () => {
     let checkRole = await authContract.checkRole(defaultAccount);
     setRole(checkRole);
@@ -28,6 +31,13 @@ const Header = () => {
       console.log(role);
     }
   });
+
+  const logoutHandler = async () => {
+    setCurrentUser("");
+    setRole("");
+    setDefaultAccount("");
+    setConnButtonText("Connect Wallet");
+  };
 
   return (
     <>
@@ -42,26 +52,33 @@ const Header = () => {
                 Result
               </Nav.Link>
               {role === "teacher" && (
-                <Nav.Link as={Link} to="/add-result">
-                  Add Result
-                </Nav.Link>
+                <>
+                  <Nav.Link as={Link} to="/add-result">
+                    Add Result
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/manage">
+                    Manage
+                  </Nav.Link>
+                </>
               )}
             </Nav>
             <Nav>
-              <Nav.Link as={Link} to="/login">
-                {/* <FontAwesomeIcon icon={faUser} /> */}
+              {/* <Nav.Link as={Link} to="/login">
+                <FontAwesomeIcon icon={faUser} />
                 Login
-              </Nav.Link>
-              {/* {login}
+              </Nav.Link> */}
               {currentUser ? (
-                <Nav.Link as={Link} to="/user">
-                  <FontAwesomeIcon icon={faUser} />
-                </Nav.Link>
+                <>
+                  <Nav.Link as={Link} to="/login">
+                    <FontAwesomeIcon icon={faUser} />
+                  </Nav.Link>
+                  <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
+                </>
               ) : (
                 <Nav.Link as={Link} to="/login">
                   Login
                 </Nav.Link>
-              )} */}
+              )}
             </Nav>
           </Nav>
         </Container>

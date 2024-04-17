@@ -159,13 +159,25 @@ const AddResult = () => {
                 {/* <button type={"submit"} name="addDiem">
           Thêm điểm
         </button> */}
-                <button type={"submit"} name="addBatch">
+                <button
+                  className="btn btn-primary"
+                  type={"submit"}
+                  name="addBatch"
+                >
                   Add to Batch
                 </button>
-                <button type={"submit"} name="addBatchToDiem">
+                <button
+                  className="btn btn-primary"
+                  type={"submit"}
+                  name="addBatchToDiem"
+                >
                   Add Batch to Diem
                 </button>
-                <button type={"submit"} name="updateDiem">
+                <button
+                  className="btn btn-primary"
+                  type={"submit"}
+                  name="updateDiem"
+                >
                   Update Record
                 </button>
               </div>
