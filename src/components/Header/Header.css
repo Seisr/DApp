@@ -13,14 +13,6 @@
   justify-content: space-evenly;
 }
 
-.text {
-  color: red;
-}
 .otm {
   margin: 1em;
-}
-
-.container {
-  width: 100%;
-  text-align: center;
 }

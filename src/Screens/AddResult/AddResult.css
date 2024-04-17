@@ -1,0 +1,31 @@
+button {
+  width: 260px;
+  margin: 0.5em 0 0 0;
+}
+
+.table {
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  /* background: white; */
+  & .form-add-record {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    & .form-detail {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    & .input-box {
+      width: 50%;
+      padding: 5px 160px 0 160px;
+      & input {
+        height: 20px;
+        width: 100%;
+      }
+    }
+  }
+}

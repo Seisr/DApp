@@ -1,12 +1,12 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useContext, useEffect, useState } from "react";
-import Auth2_abi from "../abi/Auth2_abi.json";
-import QLMH2_abi from "../abi/QLMH2_abi.json";
-import "./SignIn.css";
-import { Context } from "../App";
-const ethers = require("ethers");
+import "bootstrap/dist/css/bootstrap.css";
+import React, { useEffect, useState } from "react";
+import "./Result.css";
+import Auth2_abi from "../../abi/Auth2_abi.json";
+import QLMH2_abi from "../../abi/QLMH2_abi.json";
+import { Context } from "../../App";
 
-const SignIn = () => {
+const ethers = require("ethers");
+const Result = () => {
   const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
   // const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
   const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
@@ -15,6 +15,10 @@ const SignIn = () => {
   // const [defaultAccount, setDefaultAccount] = useState([]);
   const [connButtonText, setConnButtonText] = useState("Connect Wallet");
   const [currentContractVal, setCurrentContractVal] = useState([]);
+  // const [provider, setProvider] = useState([]);
+  // const [signer, setSigner] = useState([]);
+  // const [contract, setContract] = useState(null);
+  // const [authContract, setAuthContract] = useState(null);
   const [start, setStart] = useState(0);
   const [update, setUpdate] = useState(0);
   const [delete1, setDelete1] = useState(0);
@@ -51,7 +55,6 @@ const SignIn = () => {
         .then((result) => {
           accountChangedHandler(result[0]);
           setConnButtonText("Wallet Connected");
-          setCurrentUser(true);
         });
     } else {
       setErrorMessage("Need to install Metamask!");
@@ -241,24 +244,78 @@ const SignIn = () => {
   };
   return (
     <div className="container">
-      <div>
-        <button onClick={connectWalletHandler}>{connButtonText}</button>
-        <h3>Address: {defaultAccount}</h3>
-        {errorMessage}
-      </div>
+      <h3>"Get/Set Interaction with contract"</h3>
+      <button onClick={connectWalletHandler}>{connButtonText}</button>
+      <h3>Address: {defaultAccount}</h3>
+      <form onSubmit={setRoleAdd}>
+        <label>Address</label>
+        <input id="address1" type="text"></input>
+        <label>Role</label>
+        <select name="role1" id="role1">
+          <option value="teacher">Teacher</option>
+          <option value="student">Student</option>
+        </select>
+        <button type={"submit"}>Set role</button>
+      </form>
+      <p>CheckRole2</p>
+      <button onClick={checkRole2}>CheckRole2</button>
+      <p>Check is has role Teacher</p>
+      <form onSubmit={checkRole}>
+        <label>Address</label>
+        <input id="authAddr" type="text"></input>
+        <button type={"submit"}>Check role teacher</button>
+      </form>
+      <form onSubmit={getAll}>
+        <button type={"submit"}>Get All</button>
+      </form>
+
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID Rec</th>
+            <th>ID Lớp </th>
+            <th>ID Sinh Viên </th>
+            <th>Tên Sinh Viên </th>
+            <th>Tên Môn </th>
+            <th>ID Giáo Viên</th>
+            <th>Điểm TH </th>
+            <th>Điểm GK</th>
+            <th>Điểm CK </th>
+            <th>Diem TB </th>
+          </tr>
+        </thead>
+        {currentContractVal?.map((record, i) => {
+          if (record.idRec !== 0) {
+            return (
+              <>
+                <tbody key={i}>
+                  <tr>
+                    <td>{record.idRec}</td>
+                    <td>{record.idLop}</td>
+                    <td>{record.idSV}</td>
+                    <td>{record.tenSV}</td>
+                    <td>{record.tenMon}</td>
+                    <td>{record.idGV}</td>
+                    <td>{record.diemTH}</td>
+                    <td>{record.diemGK}</td>
+                    <td>{record.diemCK}</td>
+                    <td>{record.diemTB}</td>
+                  </tr>
+                </tbody>
+              </>
+            );
+          }
+        })}
+      </table>
+      <p></p>
+      {errorMessage}
+      <form onSubmit={deleteRecord}>
+        <label htmlFor="idRec">ID Record</label>
+        <input id="idRec"></input>
+        <button type={"submit"}>Delete</button>
+      </form>
     </div>
-    // <form className="formLogin">
-    //   <div className="input1">
-    //     <label htmlFor="address">Address</label>
-    //     <input id="address" placeholder="0x12345" type="text" />
-    //   </div>
-    //   <div className="input2">
-    //     <label htmlFor="password">Password</label>
-    //     <input id="password" type="text" />
-    //   </div>
-    //   <button type={"submit"}>Sign in</button>
-    // </form>
   );
 };
 
-export default SignIn;
+export default Result;
