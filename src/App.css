@@ -36,3 +36,77 @@
     transform: rotate(360deg);
   }
 }
+
+.container111 {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.signIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formLogin {
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.input1 {
+  display: block;
+}
+
+.input2 {
+  display: block;
+}
+*/ label {
+  display: block;
+  flex: 1;
+}
+
+input {
+  width: 250px;
+  margin: 0.5em 0 0.5em 0;
+}
+
+button {
+  width: 260px;
+  margin: 0.5em 0 0 0;
+}
+
+body {
+  background: linear-gradient(135deg, #2b5876, #4e4376);
+  background-repeat: repeat-y;
+}
+
+.table {
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  background: white;
+  & .form-add-record {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    & .form-detail {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    & .input-box {
+      width: 50%;
+      padding: 5px 160px 0 160px;
+      & input {
+        height: 20px;
+        width: 100%;
+      }
+    }
+  }
+}

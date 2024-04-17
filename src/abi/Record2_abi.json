@@ -1,0 +1,238 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "DeleteRecById",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_th",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gk",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ck",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_tb",
+				"type": "uint256"
+			}
+		],
+		"name": "insertRec",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_th",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gk",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_ck",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_tb",
+				"type": "uint256"
+			}
+		],
+		"name": "updateRecById",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "find",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "th",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "gk",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "ck",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tb",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Record2.Record[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "readRecById",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "record",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "th",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "gk",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "ck",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tb",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

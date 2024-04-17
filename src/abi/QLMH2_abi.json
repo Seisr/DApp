@@ -1,0 +1,475 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteRecById",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "findInd",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idRec",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "idLop",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenMon",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "idSV",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenSV",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "idGV",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenGV",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemTH",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemGK",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemCK",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Diem.Record[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getRecById",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "j",
+				"type": "uint256"
+			}
+		],
+		"name": "getRecByInd",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_idLop",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenMon",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idSV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenSV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idGV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenGV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemTH",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemGK",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemCK",
+				"type": "uint256"
+			}
+		],
+		"name": "insertRec",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "idLop",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenMon",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "idSV",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenSV",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "idGV",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "tenGV",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemTH",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemGK",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "diemCK",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Diem.Record2[]",
+				"name": "record2",
+				"type": "tuple[]"
+			}
+		],
+		"name": "insertRec2",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "record",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "idRec",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "idLop",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tenMon",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "idSV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tenSV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "idGV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tenGV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "diemTH",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "diemGK",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "diemCK",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idLop",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenMon",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idSV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenSV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_idGV",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tenGV",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemTH",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemGK",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_diemCK",
+				"type": "uint256"
+			}
+		],
+		"name": "updateRecById",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
