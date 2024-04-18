@@ -8,11 +8,9 @@ const ethers = require("ethers");
 
 const SignIn = () => {
   const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
-  // const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
   const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
 
   const [errorMessage, setErrorMessage] = useState([]);
-  // const [defaultAccount, setDefaultAccount] = useState([]);
   const [currentContractVal, setCurrentContractVal] = useState([]);
   const [start, setStart] = useState(0);
   const [update, setUpdate] = useState(0);

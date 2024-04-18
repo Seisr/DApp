@@ -5,7 +5,6 @@ import QLMH2_abi from "../abi/QLMH2_abi.json";
 const ethers = require("ethers");
 
 const Home = () => {
-  // const contractAddress = "0x8664c6Ea7a4b8d0e1D464Cada0e3E8880c62eF5A"; //QLMH2
   const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
   const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
 

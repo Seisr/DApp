@@ -10,7 +10,6 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../../App";
 
 const Header = () => {
-  //   let role = "teacher";
   const { rol, acc, authCon, user, connButton } = React.useContext(Context);
 
   const [authContract, setAuthContract] = authCon;
@@ -63,10 +62,6 @@ const Header = () => {
               )}
             </Nav>
             <Nav>
-              {/* <Nav.Link as={Link} to="/login">
-                <FontAwesomeIcon icon={faUser} />
-                Login
-              </Nav.Link> */}
               {currentUser ? (
                 <>
                   <Nav.Link as={Link} to="/login">
