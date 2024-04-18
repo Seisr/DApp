@@ -29,9 +29,11 @@ const Manage = () => {
           <option value="teacher">Teacher</option>
           <option value="student">Student</option>
         </select>
-        <button className="btn btn-primary" type={"submit"}>
-          Set role
-        </button>
+        <div>
+          <button className="setRoleBtn btn btn-primary" type={"submit"}>
+            Set role
+          </button>
+        </div>
       </form>
     </div>
   );

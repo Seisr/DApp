@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./AddResult.css";
+import Auth2_abi from "../../abi/Auth2_abi.json";
+import QLMH2_abi from "../../abi/QLMH2_abi.json";
+import { Context } from "../../App";
 
 const AddResult = () => {
   let role = "teacher";
@@ -8,17 +11,25 @@ const AddResult = () => {
   const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
 
   const [errorMessage, setErrorMessage] = useState([]);
-  const [defaultAccount, setDefaultAccount] = useState([]);
+  // const [defaultAccount, setDefaultAccount] = useState([]);
   const [connButtonText, setConnButtonText] = useState("Connect Wallet");
   const [currentContractVal, setCurrentContractVal] = useState([]);
-  const [provider, setProvider] = useState([]);
-  const [signer, setSigner] = useState([]);
-  const [contract, setContract] = useState(null);
-  const [authContract, setAuthContract] = useState(null);
+  // const [provider, setProvider] = useState([]);
+  // const [signer, setSigner] = useState([]);
+  // const [contract, setContract] = useState(null);
+  // const [authContract, setAuthContract] = useState(null);
   const [start, setStart] = useState(0);
   const [update, setUpdate] = useState(0);
   const [delete1, setDelete1] = useState(0);
   const [batch, setBatch] = useState([]);
+
+  const { user, acc, prov, sig, contr, authCon } = React.useContext(Context);
+  const [provider, setProvider] = prov;
+  const [signer, setSigner] = sig;
+  const [contract, setContract] = contr;
+  const [authContract, setAuthContract] = authCon;
+  const [defaultAccount, setDefaultAccount] = acc;
+  const [currentUser, setCurrentUser] = user;
   // const [role, setRole] = useState("");
 
   const setHandler = async (event) => {
@@ -52,7 +63,7 @@ const AddResult = () => {
       diemCK,
     ];
     let batch2 = [...batch, data];
-
+    console.log(batch2);
     if (event.nativeEvent.submitter.name === "addDiem") {
       const start1 = Date.now();
       setStart(start1);
@@ -76,22 +87,24 @@ const AddResult = () => {
       console.log(
         `Thời gian "Thêm điểm" đến khi block mới được đào ${end - start1}`
       );
-    } else if (event.nativeEvent.submitter.name === "updateDiem") {
-      const update = Date.now();
-      setUpdate(update);
-      await contract.updateRecById(
-        idRec,
-        idLop,
-        tenMon,
-        idSV,
-        tenSV,
-        idGV,
-        tenGV,
-        diemTH,
-        diemGK,
-        diemCK
-      );
-    } else if (event.nativeEvent.submitter.name === "addBatch") {
+    }
+    // else if (event.nativeEvent.submitter.name === "updateDiem") {
+    //   const update = Date.now();
+    //   setUpdate(update);
+    //   await contract.updateRecById(
+    //     idRec,
+    //     idLop,
+    //     tenMon,
+    //     idSV,
+    //     tenSV,
+    //     idGV,
+    //     tenGV,
+    //     diemTH,
+    //     diemGK,
+    //     diemCK
+    //   );
+    // }
+    else if (event.nativeEvent.submitter.name === "addBatch") {
       setBatch(batch2);
     } else if (event.nativeEvent.submitter.name === "addBatchToDiem") {
       await contract.insertRec2(batch);
@@ -171,15 +184,15 @@ const AddResult = () => {
                   type={"submit"}
                   name="addBatchToDiem"
                 >
-                  Add Batch to Diem
+                  Add Batch to BlockChain
                 </button>
-                <button
+                {/* <button
                   className="addBatch btn btn-primary"
                   type={"submit"}
                   name="updateDiem"
                 >
                   Update Record
-                </button>
+                </button> */}
               </div>
             </div>
           </form>

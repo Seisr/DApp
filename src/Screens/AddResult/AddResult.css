@@ -21,14 +21,14 @@ button {
       flex-wrap: wrap;
       justify-content: space-evenly;
     }
-    /* & .input-box {
+    & .input-box {
       width: 50%;
       padding: 5px 160px 0 160px;
       & input {
         height: 20px;
         width: 100%;
       }
-    } */
+    }
     & .inputAddResult {
       width: 10px;
     }
