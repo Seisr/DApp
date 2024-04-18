@@ -1,8 +1,10 @@
 button {
-  width: 260px;
   margin: 0.5em 0 0 0;
 }
 
+.addBatch {
+  width: 170px;
+}
 .table {
   align-items: center;
   justify-content: center;
@@ -19,13 +21,16 @@ button {
       flex-wrap: wrap;
       justify-content: space-evenly;
     }
-    & .input-box {
+    /* & .input-box {
       width: 50%;
       padding: 5px 160px 0 160px;
       & input {
         height: 20px;
         width: 100%;
       }
+    } */
+    & .inputAddResult {
+      width: 10px;
     }
   }
 }

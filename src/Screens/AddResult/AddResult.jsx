@@ -160,21 +160,21 @@ const AddResult = () => {
           Thêm điểm
         </button> */}
                 <button
-                  className="btn btn-primary"
+                  className="addBatch btn btn-primary"
                   type={"submit"}
                   name="addBatch"
                 >
                   Add to Batch
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="addBatch btn btn-primary"
                   type={"submit"}
                   name="addBatchToDiem"
                 >
                   Add Batch to Diem
                 </button>
                 <button
-                  className="btn btn-primary"
+                  className="addBatch btn btn-primary"
                   type={"submit"}
                   name="updateDiem"
                 >

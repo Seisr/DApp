@@ -8,22 +8,17 @@ import { Context } from "../../App";
 const ethers = require("ethers");
 const Result = () => {
   const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
-  // const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
   const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
 
   const [errorMessage, setErrorMessage] = useState([]);
-  // const [defaultAccount, setDefaultAccount] = useState([]);
   const [connButtonText, setConnButtonText] = useState("Connect Wallet");
   const [currentContractVal, setCurrentContractVal] = useState([]);
-  // const [provider, setProvider] = useState([]);
-  // const [signer, setSigner] = useState([]);
-  // const [contract, setContract] = useState(null);
-  // const [authContract, setAuthContract] = useState(null);
   const [start, setStart] = useState(0);
   const [update, setUpdate] = useState(0);
   const [delete1, setDelete1] = useState(0);
   const [batch, setBatch] = useState([]);
   const [role, setRole] = useState("");
+  const [disable, setDisable] = useState([]);
 
   const { user, acc, prov, sig, contr, authCon } = React.useContext(Context);
   const [provider, setProvider] = prov;
@@ -234,6 +229,186 @@ const Result = () => {
     console.log(checkRole);
   };
 
+  const handleChangeIdLop = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          idLop: Number(document.querySelector(`#idLop${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+
+  const toggleInput = (id) => {
+    if (disable.includes(id)) {
+      setDisable(disable.filter((item) => item !== id));
+    } else {
+      setDisable([...disable, id]);
+    }
+  };
+
+  const handleChangeIdSV = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          idSV: Number(document.querySelector(`#idSV${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+
+  const handleChangeTenSV = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          tenSV: document.querySelector(`#tenSV${i}`).value,
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+  const handleChangeTenMon = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          tenMon: document.querySelector(`#tenMon${i}`).value,
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+  const handleChangeIdGV = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          idGV: Number(document.querySelector(`#idGV${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+  const handleChangeTenGV = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          tenGV: document.querySelector(`#tenGV${i}`).value,
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+
+  const handleChangeDiemTH = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          diemTH: Number(document.querySelector(`#diemTH${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+
+  const handleChangeDiemGK = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          diemGK: Number(document.querySelector(`#diemGK${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+  const handleChangeDiemCK = (i) => {
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          diemCK: Number(document.querySelector(`#diemCK${i}`).value),
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+    console.log(newData);
+  };
+
+  const editRecord = async (id, i) => {
+    let idRec = document.querySelector(`#idRec${i}`).value;
+    idRec = Number(idRec);
+    let idLop = document.querySelector(`#idLop${i}`).value;
+    idLop = Number(idLop);
+    let idSV = document.querySelector(`#idSV${i}`).value;
+    idSV = Number(idSV);
+    let idGV = document.querySelector(`#idGV${i}`).value;
+    idGV = Number(idGV);
+    let tenMon = document.querySelector(`#tenMon${i}`).value;
+    let tenSV = document.querySelector(`#tenSV${i}`).value;
+    let tenGV = document.querySelector(`#tenGV${i}`).value;
+    let diemTH = document.querySelector(`#diemTH${i}`).value;
+    diemTH = Number(diemTH);
+    let diemGK = document.querySelector(`#diemGK${i}`).value;
+    diemGK = Number(diemGK);
+    let diemCK = document.querySelector(`#diemCK${i}`).value;
+    diemCK = Number(diemCK);
+    let data = [
+      idLop,
+      tenMon,
+      idSV,
+      tenSV,
+      idGV,
+      tenGV,
+      diemTH,
+      diemGK,
+      diemCK,
+    ];
+    await contract.updateRecById(
+      idRec,
+      idLop,
+      tenMon,
+      idSV,
+      tenSV,
+      idGV,
+      tenGV,
+      diemTH,
+      diemGK,
+      diemCK
+    );
+    toggleInput(id);
+    const newData = currentContractVal.map((record, index) => {
+      if (i === index) {
+        return {
+          ...record,
+          diemTB: (diemTH + diemGK + diemCK) / 3,
+        };
+      }
+      return record;
+    });
+    setCurrentContractVal(newData);
+  };
+
+  const deleteRecord1 = (id) => {
+    contract.deleteRecById(id);
+  };
+
   // const setRoleAdd = async (event) => {
   //   event.preventDefault();
   //   let addr = event.target.address1.value;
@@ -283,6 +458,7 @@ const Result = () => {
             <th>Tên Sinh Viên </th>
             <th>Tên Môn </th>
             <th>ID Giáo Viên</th>
+            <th>Tên Giáo Viên</th>
             <th>Điểm TH </th>
             <th>Điểm GK</th>
             <th>Điểm CK </th>
@@ -290,21 +466,152 @@ const Result = () => {
           </tr>
         </thead>
         {currentContractVal?.map((record, i) => {
-          if (record.idRec !== 0) {
+          // const disable1 = disable[record.idRec] || true;
+          {
             return (
               <>
                 <tbody key={i}>
                   <tr>
-                    <td>{record.idRec}</td>
-                    <td>{record.idLop}</td>
-                    <td>{record.idSV}</td>
-                    <td>{record.tenSV}</td>
-                    <td>{record.tenMon}</td>
-                    <td>{record.idGV}</td>
-                    <td>{record.diemTH}</td>
-                    <td>{record.diemGK}</td>
-                    <td>{record.diemCK}</td>
-                    <td>{record.diemTB}</td>
+                    <td>
+                      <input
+                        id={`idRec${i}`}
+                        className="inputAddResult"
+                        value={record.idRec}
+                        disabled={true}
+                        size="3"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`idLop${i}`}
+                        className="inputAddResult"
+                        value={record.idLop}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeIdLop(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`idSV${i}`}
+                        className="inputAddResult"
+                        value={record.idSV}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeIdSV(i)}
+                      />
+                    </td>
+
+                    <td>
+                      <input
+                        id={`tenSV${i}`}
+                        className="inputAddResult"
+                        value={record.tenSV}
+                        disabled={!disable.includes(record.idRec)}
+                        size="10"
+                        onChange={() => handleChangeTenSV(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`tenMon${i}`}
+                        className="inputAddResult"
+                        value={record.tenMon}
+                        disabled={!disable.includes(record.idRec)}
+                        size="10"
+                        onChange={() => handleChangeTenMon(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`idGV${i}`}
+                        className="inputAddResult"
+                        value={record.idGV}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeIdGV(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`tenGV${i}`}
+                        className="inputAddResult"
+                        value={record.tenGV}
+                        disabled={!disable.includes(record.idRec)}
+                        size="7"
+                        onChange={() => handleChangeTenGV(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`diemTH${i}`}
+                        className="inputAddResult"
+                        value={record.diemTH}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeDiemTH(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`diemGK${i}`}
+                        className="inputAddResult"
+                        value={record.diemGK}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeDiemGK(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`diemCK${i}`}
+                        className="inputAddResult"
+                        value={record.diemCK}
+                        disabled={!disable.includes(record.idRec)}
+                        size="3"
+                        onChange={() => handleChangeDiemCK(i)}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        id={`diemTB${i}`}
+                        className="inputAddResult"
+                        value={record.diemTB}
+                        disabled={true}
+                        size="3"
+                      />
+                    </td>
+                    <td>
+                      {disable.includes(record.idRec) === false ? (
+                        <button
+                          className="btn btn-warning"
+                          type={"submit"}
+                          // onClick={() => editRecord(record.idRec)}
+                          // onClick={() => show(record.idRec)}
+                          onClick={() => toggleInput(record.idRec)}
+                        >
+                          Edit
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-warning"
+                          type={"submit"}
+                          onClick={() => editRecord(record.idRec, i)}
+                          // onClick={() => setDisable(!disable)}
+                        >
+                          Update
+                        </button>
+                      )}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-danger"
+                        type={"submit"}
+                        onClick={() => deleteRecord1(record.idRec)}
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </>
@@ -312,15 +619,14 @@ const Result = () => {
           }
         })}
       </table>
-      <p></p>
       {errorMessage}
-      <form onSubmit={deleteRecord}>
+      {/* <form onSubmit={deleteRecord}>
         <label htmlFor="idRec">ID Record</label>
         <input id="idRec"></input>
         <button className="btn btn-danger" type={"submit"}>
           Delete
         </button>
-      </form>
+      </form> */}
     </div>
   );
 };
