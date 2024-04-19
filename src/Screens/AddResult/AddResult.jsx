@@ -17,13 +17,15 @@ const AddResult = () => {
   const [delete1, setDelete1] = useState(0);
   const [batch, setBatch] = useState([]);
 
-  const { user, acc, prov, sig, contr, authCon } = React.useContext(Context);
+  const { user, acc, prov, sig, contr, authCon, rol } =
+    React.useContext(Context);
   const [provider, setProvider] = prov;
   const [signer, setSigner] = sig;
   const [contract, setContract] = contr;
   const [authContract, setAuthContract] = authCon;
   const [defaultAccount, setDefaultAccount] = acc;
   const [currentUser, setCurrentUser] = user;
+  const [role, setRole] = rol;
 
   const setHandler = async (event) => {
     event.preventDefault();
@@ -86,78 +88,227 @@ const AddResult = () => {
     const end = Date.now();
     // console.log(start);
   };
+
+  const deleteRecord1 = (index) => {
+    const newArray = [...batch];
+    newArray.splice(index, 1);
+    setBatch(newArray);
+  };
   return (
     <>
       <div className="container">
         {role === "teacher" && (
-          <form className="form-add-record" onSubmit={setHandler}>
-            <div className="form-detail">
-              <div className="input-box">
-                {" "}
-                <label htmlFor="idRec">ID Rec</label>
-                <input id="idRec" type="text" placeholder="Mã record" />
+          <>
+            <form className="form-add-record" onSubmit={setHandler}>
+              <div className="form-detail">
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="idRec">ID Rec</label>
+                  <input id="idRec" type="text" placeholder="Mã record" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="idLop">ID Lớp</label>
+                  <input id="idLop" type="text" placeholder="Mã Lớp" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="idSV">ID Sinh viên</label>
+                  <input id="idSV" type="text" placeholder="Mã Sinh Viên" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="idGV">ID Giáo viên</label>
+                  <input id="idGV" type="text" placeholder="Mã giáo viên" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="tenSV">Tên Giáo Viên</label>
+                  <input id="tenGV" type="text" placeholder="Kha Nguyễn" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="tenMon">Tên Môn</label>
+                  <input id="tenMon" type="text" placeholder="Toán" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="tenSV">Tên Sinh Viên</label>
+                  <input id="tenSV" type="text" placeholder="Bảo Kha" />
+                </div>
+                <div className="input-box">
+                  {" "}
+                  <label htmlFor="diemTH">Điểm Thực hành</label>
+                  <input id="diemTH" type="text" placeholder="9" />
+                </div>
+                <div className="input-box">
+                  <label htmlFor="diemGK">Điểm Giữa Kỳ</label>
+                  <input id="diemGK" type="text" placeholder="9" />
+                </div>
+                <div className="input-box">
+                  <label htmlFor="diemCK">Điểm Cuối Kỳ</label>
+                  <input id="diemCK" type="text" placeholder="9" />
+                </div>
+                <div className="input-box">
+                  <button
+                    className="addBatch btn btn-primary"
+                    type={"submit"}
+                    name="addBatch"
+                  >
+                    Add to Batch
+                  </button>
+                  <button
+                    className="addBatch btn btn-primary"
+                    type={"submit"}
+                    name="addBatchToDiem"
+                  >
+                    Add Batch to BlockChain
+                  </button>
+                </div>
               </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="idLop">ID Lớp</label>
-                <input id="idLop" type="text" placeholder="Mã Lớp" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="idSV">ID Sinh viên</label>
-                <input id="idSV" type="text" placeholder="Mã Sinh Viên" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="idGV">ID Giáo viên</label>
-                <input id="idGV" type="text" placeholder="Mã giáo viên" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="tenSV">Tên Giáo Viên</label>
-                <input id="tenGV" type="text" placeholder="Kha Nguyễn" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="tenMon">Tên Môn</label>
-                <input id="tenMon" type="text" placeholder="Toán" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="tenSV">Tên Sinh Viên</label>
-                <input id="tenSV" type="text" placeholder="Bảo Kha" />
-              </div>
-              <div className="input-box">
-                {" "}
-                <label htmlFor="diemTH">Điểm Thực hành</label>
-                <input id="diemTH" type="text" placeholder="9" />
-              </div>
-              <div className="input-box">
-                <label htmlFor="diemGK">Điểm Giữa Kỳ</label>
-                <input id="diemGK" type="text" placeholder="9" />
-              </div>
-              <div className="input-box">
-                <label htmlFor="diemCK">Điểm Cuối Kỳ</label>
-                <input id="diemCK" type="text" placeholder="9" />
-              </div>
-              <div className="input-box">
-                <button
-                  className="addBatch btn btn-primary"
-                  type={"submit"}
-                  name="addBatch"
-                >
-                  Add to Batch
-                </button>
-                <button
-                  className="addBatch btn btn-primary"
-                  type={"submit"}
-                  name="addBatchToDiem"
-                >
-                  Add Batch to BlockChain
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ID Lớp </th>
+                  <th>ID Sinh Viên </th>
+                  <th>Tên Sinh Viên </th>
+                  <th>Tên Môn </th>
+                  <th>ID Giáo Viên</th>
+                  <th>Tên Giáo Viên</th>
+                  <th>Điểm TH </th>
+                  <th>Điểm GK</th>
+                  <th>Điểm CK </th>
+                </tr>
+              </thead>
+              {batch?.map((record, i) => {
+                {
+                  return (
+                    <>
+                      <tbody key={i}>
+                        <tr>
+                          <td>
+                            <input
+                              id={`idLop${i}`}
+                              className="inputAddResult"
+                              value={record[0]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`idSV${i}`}
+                              className="inputAddResult"
+                              value={record[2]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+
+                          <td>
+                            <input
+                              id={`tenSV${i}`}
+                              className="inputAddResult"
+                              value={record[3]}
+                              disabled={true}
+                              size="10"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`tenMon${i}`}
+                              className="inputAddResult"
+                              value={record[1]}
+                              disabled={true}
+                              size="10"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`idGV${i}`}
+                              className="inputAddResult"
+                              value={record[4]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`tenGV${i}`}
+                              className="inputAddResult"
+                              value={record[5]}
+                              disabled={true}
+                              size="7"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`diemTH${i}`}
+                              className="inputAddResult"
+                              value={record[6]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`diemGK${i}`}
+                              className="inputAddResult"
+                              value={record[7]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`diemCK${i}`}
+                              className="inputAddResult"
+                              value={record[8]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+
+                          {/* <td>
+                            {disable.includes(record.idRec) === false ? (
+                              <button
+                                className="btn btn-warning"
+                                type={"submit"}
+                                // onClick={() => editRecord(record.idRec)}
+                                // onClick={() => show(record.idRec)}
+                                onClick={() => toggleInput(record.idRec)}
+                              >
+                                Edit
+                              </button>
+                            ) : (
+                              <button
+                                className="btn btn-warning"
+                                type={"submit"}
+                                onClick={() => editRecord(record.idRec, i)}
+                                // onClick={() => setDisable(!disable)}
+                              >
+                                Update
+                              </button>
+                            )}
+                          </td>*/}
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              type={"submit"}
+                              onClick={() => deleteRecord1(i)}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </>
+                  );
+                }
+              })}
+            </table>
+          </>
         )}
       </div>
     </>
