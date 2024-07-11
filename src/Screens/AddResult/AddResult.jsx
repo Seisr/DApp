@@ -3,10 +3,16 @@ import "./AddResult.css";
 import Auth2_abi from "../../abi/Auth2_abi.json";
 import QLMH2_abi from "../../abi/QLMH2_abi.json";
 import { Context } from "../../App";
+const ethers = require("ethers");
 
 const AddResult = () => {
-  const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
-  const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
+  // const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
+  // const contractAddress = "0x09C1e83c85398Fd80D84C8d8D01070fB330A8d9a"; //QLMH3
+  const contractAddress = "0xAc694F16C05795ef9f8A0CD2D5095a7C35290e90"; //QLMH3
+  // const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
+  // const authAddress = "0xb4f80Aed9F18a2C8F4E5bBAcf388550A6DEb8521"; //Auth2
+  // const authAddress = "0x7b97FAEBf26aaBA06e8c0C3fe98974da0fa6b172"; //Auth2
+  const authAddress = "0x73c48000f76fCd0f372c464972750B75054885e2"; //Auth2
 
   const [errorMessage, setErrorMessage] = useState([]);
   const [connButtonText, setConnButtonText] = useState("Connect Wallet");
@@ -16,6 +22,7 @@ const AddResult = () => {
   const [update, setUpdate] = useState(0);
   const [delete1, setDelete1] = useState(0);
   const [batch, setBatch] = useState([]);
+  const [addBatchToDiem, setAddBatchToDiem] = useState(0);
 
   const { user, acc, prov, sig, contr, authCon, rol } =
     React.useContext(Context);
@@ -26,6 +33,55 @@ const AddResult = () => {
   const [defaultAccount, setDefaultAccount] = acc;
   const [currentUser, setCurrentUser] = user;
   const [role, setRole] = rol;
+
+  const getAll = async (event) => {
+    event.preventDefault();
+    let val = await contract.get();
+    let array = [];
+    for (let i = 0; i < val.length; i++) {
+      let temp = {};
+      let data = val[i];
+      // console.log(data);
+      let tenMon = ethers.utils.parseBytes32String(data[2]);
+      let tenSV = ethers.utils.parseBytes32String(data[4]);
+      let tenGV = ethers.utils.parseBytes32String(data[6]);
+      let diemTB =
+        (data[7].toNumber() + data[8].toNumber() + data[9].toNumber()) / 3;
+      temp = {
+        idRec: data[0].toNumber(),
+        idLop: data[1].toNumber(),
+        tenMon: tenMon,
+        idSV: data[3].toNumber(),
+        tenSV: tenSV,
+        idGV: data[5].toNumber(),
+        tenGV: tenGV,
+        diemTH: data[7].toNumber(),
+        diemGK: data[8].toNumber(),
+        diemCK: data[9].toNumber(),
+        diemTB: diemTB,
+      };
+      // console.log(temp);
+      array.push(temp);
+      setCurrentContractVal(array);
+    }
+    const time = Date.now();
+    // console.log(array);
+    console.log(array);
+
+    console.log(
+      `Thời gian cần để record mới được thêm vào blockchain: ${
+        time - addBatchToDiem
+      }`
+    );
+    // console.log(
+    //   `Thời gian cần để record mới được cập nhật vào blockchain: ${
+    //     time - update
+    //   }`
+    // );
+    // console.log(
+    //   `Thời gian cần để record mới được xóa khỏi blockchain: ${time - delete1}`
+    // );
+  };
 
   const setHandler = async (event) => {
     event.preventDefault();
@@ -38,8 +94,16 @@ const AddResult = () => {
     let idGV = event.target.idGV.value;
     idGV = Number(idGV);
     let tenMon = event.target.tenMon.value;
+    let tenMon2 = ethers.utils.formatBytes32String(tenMon);
+    console.log(tenMon2);
+    let tenMon3 = ethers.utils.hexZeroPad(tenMon2, 32);
+    console.log(tenMon3);
     let tenSV = event.target.tenSV.value;
+    let tenSV2 = ethers.utils.formatBytes32String(tenSV);
+    let tenSV3 = ethers.utils.hexZeroPad(tenSV2, 32);
     let tenGV = event.target.tenGV.value;
+    let tenGV2 = ethers.utils.formatBytes32String(tenGV);
+    let tenGV3 = ethers.utils.hexZeroPad(tenGV2, 32);
     let diemTH = event.target.diemTH.value;
     diemTH = Number(diemTH);
     let diemGK = event.target.diemGK.value;
@@ -47,46 +111,62 @@ const AddResult = () => {
     let diemCK = event.target.diemCK.value;
     diemCK = Number(diemCK);
     let data = [
+      idRec,
       idLop,
-      tenMon,
+      tenMon3,
       idSV,
-      tenSV,
+      tenSV3,
       idGV,
-      tenGV,
+      tenGV3,
       diemTH,
       diemGK,
       diemCK,
     ];
     let batch2 = [...batch, data];
     console.log(batch2);
+    try {
+      if (event.nativeEvent.submitter.name === "addDiem") {
+        const start1 = Date.now();
+        setStart(start1);
+        await contract.insertRec(
+          idLop,
+          tenMon3,
+          idSV,
+          tenSV3,
+          idGV,
+          tenGV3,
+          diemTH,
+          diemGK,
+          diemCK
+        );
 
-    if (event.nativeEvent.submitter.name === "addDiem") {
-      const start1 = Date.now();
-      setStart(start1);
-      await contract.insertRec(
-        idLop,
-        tenMon,
-        idSV,
-        tenSV,
-        idGV,
-        tenGV,
-        diemTH,
-        diemGK,
-        diemCK
-      );
-
+        const end = Date.now();
+        console.log(
+          `Thời gian "Thêm điểm" đến khi block mới được đào ${end - start1}`
+        );
+      } else if (event.nativeEvent.submitter.name === "addBatch") {
+        setBatch(batch2);
+      } else if (event.nativeEvent.submitter.name === "addBatchToDiem") {
+        const addBatchToDiem = Date.now();
+        setAddBatchToDiem(addBatchToDiem);
+        await contract.insertRec2(batch);
+        const end = Date.now();
+        // console.log(
+        //   `Thời gian "Thêm Batch" đến khi block mới được đào ${
+        //     end - addBatchToDiem
+        //   }`
+        // );
+        setBatch([]);
+      }
       const end = Date.now();
-      console.log(
-        `Thời gian "Thêm điểm" đến khi block mới được đào ${end - start1}`
-      );
-    } else if (event.nativeEvent.submitter.name === "addBatch") {
-      setBatch(batch2);
-    } else if (event.nativeEvent.submitter.name === "addBatchToDiem") {
-      await contract.insertRec2(batch);
-      setBatch([]);
+      // console.log(start);
+    } catch (error) {
+      if (error.code === 4001) {
+        console.log(`user rejected request`);
+      } else {
+        console.log(error);
+      }
     }
-    const end = Date.now();
-    // console.log(start);
   };
 
   const deleteRecord1 = (index) => {
@@ -97,14 +177,26 @@ const AddResult = () => {
   return (
     <>
       <div className="container">
-        {role === "teacher" && (
+        {/* <form onSubmit={getAll}>
+          <div className="button2">
+            <button className="btn btn-primary" type={"submit"}>
+              Get All
+            </button>
+          </div>
+        </form> */}
+        {role !== "student" && (
           <>
             <form className="form-add-record" onSubmit={setHandler}>
               <div className="form-detail">
                 <div className="input-box">
                   {" "}
                   <label htmlFor="idRec">ID Rec</label>
-                  <input id="idRec" type="text" placeholder="Mã record" />
+                  <input
+                    id="idRec"
+                    type="text"
+                    placeholder="Mã record"
+                    disabled={true}
+                  />
                 </div>
                 <div className="input-box">
                   {" "}
@@ -191,7 +283,7 @@ const AddResult = () => {
                             <input
                               id={`idLop${i}`}
                               className="inputAddResult"
-                              value={record[0]}
+                              value={record[1]}
                               disabled={true}
                               size="3"
                             />
@@ -200,7 +292,7 @@ const AddResult = () => {
                             <input
                               id={`idSV${i}`}
                               className="inputAddResult"
-                              value={record[2]}
+                              value={record[3]}
                               disabled={true}
                               size="3"
                             />
@@ -210,7 +302,7 @@ const AddResult = () => {
                             <input
                               id={`tenSV${i}`}
                               className="inputAddResult"
-                              value={record[3]}
+                              value={ethers.utils.parseBytes32String(record[4])}
                               disabled={true}
                               size="10"
                             />
@@ -219,16 +311,16 @@ const AddResult = () => {
                             <input
                               id={`tenMon${i}`}
                               className="inputAddResult"
-                              value={record[1]}
+                              value={ethers.utils.parseBytes32String(record[2])}
                               disabled={true}
-                              size="10"
+                              size="7"
                             />
                           </td>
                           <td>
                             <input
                               id={`idGV${i}`}
                               className="inputAddResult"
-                              value={record[4]}
+                              value={record[5]}
                               disabled={true}
                               size="3"
                             />
@@ -237,23 +329,14 @@ const AddResult = () => {
                             <input
                               id={`tenGV${i}`}
                               className="inputAddResult"
-                              value={record[5]}
+                              value={ethers.utils.parseBytes32String(record[6])}
                               disabled={true}
-                              size="7"
+                              size="13"
                             />
                           </td>
                           <td>
                             <input
                               id={`diemTH${i}`}
-                              className="inputAddResult"
-                              value={record[6]}
-                              disabled={true}
-                              size="3"
-                            />
-                          </td>
-                          <td>
-                            <input
-                              id={`diemGK${i}`}
                               className="inputAddResult"
                               value={record[7]}
                               disabled={true}
@@ -262,9 +345,18 @@ const AddResult = () => {
                           </td>
                           <td>
                             <input
-                              id={`diemCK${i}`}
+                              id={`diemGK${i}`}
                               className="inputAddResult"
                               value={record[8]}
+                              disabled={true}
+                              size="3"
+                            />
+                          </td>
+                          <td>
+                            <input
+                              id={`diemCK${i}`}
+                              className="inputAddResult"
+                              value={record[9]}
                               disabled={true}
                               size="3"
                             />

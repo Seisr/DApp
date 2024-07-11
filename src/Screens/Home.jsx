@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import Auth_abi from "../abi/Auth_abi.json";
+import Auth2_abi from "../abi/Auth2_abi.json";
 import QLMH2_abi from "../abi/QLMH2_abi.json";
 const ethers = require("ethers");
 
 const Home = () => {
-  const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
-  const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
+  // const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
+  // const contractAddress = "0x09C1e83c85398Fd80D84C8d8D01070fB330A8d9a"; //QLMH3
+  const contractAddress = "0xAc694F16C05795ef9f8A0CD2D5095a7C35290e90"; //QLMH3
+
+  // const authAddress = "0xfB4d5Ce1583b01c5a50264e833eCdF7F0C98a87a"; //Auth
+  // const authAddress = "0xb4f80Aed9F18a2C8F4E5bBAcf388550A6DEb8521"; //Auth2
+  // const authAddress = "0x7b97FAEBf26aaBA06e8c0C3fe98974da0fa6b172"; //Auth2
+  const authAddress = "0x73c48000f76fCd0f372c464972750B75054885e2"; //Auth2
 
   const [errorMessage, setErrorMessage] = useState([]);
   const [defaultAccount, setDefaultAccount] = useState([]);
@@ -225,7 +231,8 @@ const Home = () => {
   const checkRole = async (event) => {
     event.preventDefault();
     let checkRole = await authContract.checkRole(event.target.authAddr.value);
-    console.log(checkRole);
+    let checkRole2 = ethers.utils.parseBytes32String(checkRole);
+    console.log(checkRole2);
   };
   return (
     <div className="container">

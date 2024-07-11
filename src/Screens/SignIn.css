@@ -24,3 +24,12 @@
   width: 100%;
   text-align: center;
 }
+
+.signIn {
+  margin: 16em;
+}
+
+.loginBtn {
+  margin: 1em;
+  width: 30%;
+}

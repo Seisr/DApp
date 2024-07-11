@@ -5,9 +5,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Context } from "../../App";
+const ethers = require("ethers");
+// const navigate = useNavigate();
 
 const Header = () => {
   const { rol, acc, authCon, user, connButton } = React.useContext(Context);
@@ -20,8 +22,9 @@ const Header = () => {
 
   const checkRole = async () => {
     let checkRole = await authContract.checkRole(defaultAccount);
-    setRole(checkRole);
-    console.log(checkRole);
+    let checkRole2 = ethers.utils.parseBytes32String(checkRole);
+    setRole(checkRole2);
+    console.log(checkRole2);
   };
 
   useEffect(() => {
@@ -36,6 +39,7 @@ const Header = () => {
     setRole("");
     setDefaultAccount("");
     setConnButtonText("Connect Wallet");
+    // navigate.navigate("/");
   };
 
   return (
@@ -43,21 +47,47 @@ const Header = () => {
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
-            Dapp
+            CMS
           </Navbar.Brand>
           <Nav className="flex-grow-1 justify-content-between me-auto">
             <Nav className="">
-              <Nav.Link as={Link} to="/result">
-                Result
-              </Nav.Link>
-              {role === "teacher" && (
+              {role === "admin" && (
                 <>
+                  <Nav.Link as={Link} to="/result">
+                    Result
+                  </Nav.Link>
                   <Nav.Link as={Link} to="/add-result">
                     Add Result
                   </Nav.Link>
                   <Nav.Link as={Link} to="/manage">
                     Manage
                   </Nav.Link>
+                </>
+              )}
+              {role === "teacher" && (
+                <>
+                  <Nav.Link as={Link} to="/result">
+                    Result
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/add-result">
+                    Add Result
+                  </Nav.Link>
+                  {/* <Nav.Link as={Link} to="/manage">
+                    Manage
+                  </Nav.Link> */}
+                </>
+              )}
+              {role === "student" && (
+                <>
+                  <Nav.Link as={Link} to="/result">
+                    Result
+                  </Nav.Link>
+                  {/* <Nav.Link as={Link} to="/add-result">
+                    Add Result
+                  </Nav.Link> */}
+                  {/* <Nav.Link as={Link} to="/manage">
+                    Manage
+                  </Nav.Link> */}
                 </>
               )}
             </Nav>
@@ -67,7 +97,9 @@ const Header = () => {
                   <Nav.Link as={Link} to="/login">
                     <FontAwesomeIcon icon={faUser} />
                   </Nav.Link>
-                  <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
+                  <Nav.Link as={Link} to="/" onClick={logoutHandler}>
+                    Logout
+                  </Nav.Link>
                 </>
               ) : (
                 <Nav.Link as={Link} to="/login">

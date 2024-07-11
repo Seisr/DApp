@@ -7,8 +7,17 @@ import { Context } from "../../App";
 
 const ethers = require("ethers");
 const Result = () => {
-  const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
-  const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
+  // const contractAddress = "0xD2cF4af28a0434B3E6f054300D89dd3bf19D900C"; //QLMH3
+  // const contractAddress = "0x09C1e83c85398Fd80D84C8d8D01070fB330A8d9a"; //QLMH3
+  // const contractAddress = "0x6ceeCca7c951BaB459593898830558C01CCba196"; //QLMH3
+  const contractAddress = "0xAc694F16C05795ef9f8A0CD2D5095a7C35290e90"; //QLMH3
+
+  // const authAddress = "0x8497cB9D99Bfe76a3577cE639a6eeEd0CC28dFE2"; //Auth2
+  // const authAddress = "0xb4f80Aed9F18a2C8F4E5bBAcf388550A6DEb8521"; //Auth2
+  // const authAddress = "0x7b97FAEBf26aaBA06e8c0C3fe98974da0fa6b172"; //Auth2
+  const authAddress = "0x041829DA8fDEe3A6C9368Da6a88049221F70289c"; //Auth2
+
+  console.log(`thời gian cần để thêm 10 record mới vào blockchain: 21285`);
 
   const [errorMessage, setErrorMessage] = useState([]);
   const [connButtonText, setConnButtonText] = useState("Connect Wallet");
@@ -78,46 +87,50 @@ const Result = () => {
 
   const getAll = async (event) => {
     event.preventDefault();
-    let val = await contract.get();
-    let array = [];
-    for (let i = 0; i < val.length; i++) {
-      let temp = {};
-      let data = val[i];
-      console.log(data);
-      let diemTB =
-        (data[7].toNumber() + data[8].toNumber() + data[9].toNumber()) / 3;
-      temp = {
-        idRec: data[0].toNumber(),
-        idLop: data[1].toNumber(),
-        tenMon: data[2],
-        idSV: data[3].toNumber(),
-        tenSV: data[4],
-        idGV: data[5].toNumber(),
-        tenGV: data[6],
-        diemTH: data[7].toNumber(),
-        diemGK: data[8].toNumber(),
-        diemCK: data[9].toNumber(),
-        diemTB: diemTB,
-      };
-      // console.log(temp);
-      array.push(temp);
-      setCurrentContractVal(array);
-    }
-    const time = Date.now();
-    // console.log(array);
-    console.log(batch);
+    try {
+      let val = await contract.get();
+      let array = [];
+      for (let i = 0; i < val.length; i++) {
+        let temp = {};
+        let data = val[i];
+        console.log(data);
+        let diemTB =
+          (data[7].toNumber() + data[8].toNumber() + data[9].toNumber()) / 3;
+        temp = {
+          idRec: data[0].toNumber(),
+          idLop: data[1].toNumber(),
+          tenMon: data[2],
+          idSV: data[3].toNumber(),
+          tenSV: data[4],
+          idGV: data[5].toNumber(),
+          tenGV: data[6],
+          diemTH: data[7].toNumber(),
+          diemGK: data[8].toNumber(),
+          diemCK: data[9].toNumber(),
+          diemTB: diemTB,
+        };
+        // console.log(temp);
+        array.push(temp);
+        setCurrentContractVal(array);
+      }
+      const time = Date.now();
+      // console.log(array);
+      console.log(batch);
 
-    // console.log(
-    //   `Thời gian cần để record mới được thêm vào blockchain: ${time - start}`
-    // );
-    // console.log(
-    //   `Thời gian cần để record mới được cập nhật vào blockchain: ${
-    //     time - update
-    //   }`
-    // );
-    // console.log(
-    //   `Thời gian cần để record mới được xóa khỏi blockchain: ${time - delete1}`
-    // );
+      console.log(
+        `Thời gian cần để record mới được thêm vào blockchain: ${time - start}`
+      );
+      // console.log(
+      //   `Thời gian cần để record mới được cập nhật vào blockchain: ${
+      //     time - update
+      //   }`
+      // );
+      // console.log(
+      //   `Thời gian cần để record mới được xóa khỏi blockchain: ${time - delete1}`
+      // );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const setHandler = async (event) => {
@@ -151,53 +164,60 @@ const Result = () => {
       diemCK,
     ];
     let batch2 = [...batch, data];
-
-    if (event.nativeEvent.submitter.name === "addDiem") {
-      const start1 = Date.now();
-      setStart(start1);
-      await contract.insertRec(
-        idLop,
-        tenMon,
-        idSV,
-        tenSV,
-        idGV,
-        tenGV,
-        diemTH,
-        diemGK,
-        diemCK
-      );
-      //   .then(() => {
-      //     getAll(event);
-      //   });
-      // let test = getAll(event);
-      // console.log(test);
+    try {
+      if (event.nativeEvent.submitter.name === "addDiem") {
+        const start1 = Date.now();
+        setStart(start1);
+        await contract.insertRec(
+          idLop,
+          tenMon,
+          idSV,
+          tenSV,
+          idGV,
+          tenGV,
+          diemTH,
+          diemGK,
+          diemCK
+        );
+        //   .then(() => {
+        //     getAll(event);
+        //   });
+        // let test = getAll(event);
+        // console.log(test);
+        const end = Date.now();
+        console.log(
+          `Thời gian "Thêm điểm" đến khi block mới được đào ${end - start1}`
+        );
+      } else if (event.nativeEvent.submitter.name === "updateDiem") {
+        const update = Date.now();
+        setUpdate(update);
+        await contract.updateRecById(
+          idRec,
+          idLop,
+          tenMon,
+          idSV,
+          tenSV,
+          idGV,
+          tenGV,
+          diemTH,
+          diemGK,
+          diemCK
+        );
+      } else if (event.nativeEvent.submitter.name === "addBatch") {
+        setBatch(batch2);
+      } else if (event.nativeEvent.submitter.name === "addBatchToDiem") {
+        await contract.insertRec2(batch);
+        setBatch([]);
+      }
       const end = Date.now();
-      console.log(
-        `Thời gian "Thêm điểm" đến khi block mới được đào ${end - start1}`
-      );
-    } else if (event.nativeEvent.submitter.name === "updateDiem") {
-      const update = Date.now();
-      setUpdate(update);
-      await contract.updateRecById(
-        idRec,
-        idLop,
-        tenMon,
-        idSV,
-        tenSV,
-        idGV,
-        tenGV,
-        diemTH,
-        diemGK,
-        diemCK
-      );
-    } else if (event.nativeEvent.submitter.name === "addBatch") {
-      setBatch(batch2);
-    } else if (event.nativeEvent.submitter.name === "addBatchToDiem") {
-      await contract.insertRec2(batch);
-      setBatch([]);
+      // console.log(start);
+    } catch (error) {
+      if (error.code === 4001) {
+        console.log(`user rejected request`);
+      } else {
+        console.log(error);
+      }
     }
-    const end = Date.now();
-    // console.log(start);
   };
 
   const deleteRecord = (event) => {
@@ -220,13 +240,15 @@ const Result = () => {
   const checkRole = async (event) => {
     event.preventDefault();
     let checkRole = await authContract.checkRole(event.target.authAddr.value);
-    console.log(checkRole);
+    let checkRole2 = ethers.utils.parseBytes32String(checkRole);
+    console.log(checkRole2);
   };
 
   const checkRole2 = async () => {
     let checkRole = await authContract.checkRole(defaultAccount);
-    setRole(checkRole);
-    console.log(checkRole);
+    let checkRole2 = ethers.utils.parseBytes32String(checkRole);
+    setRole(checkRole2);
+    console.log(checkRole2);
   };
 
   const handleChangeIdLop = (i) => {
@@ -268,7 +290,9 @@ const Result = () => {
       if (i === index) {
         return {
           ...record,
-          tenSV: document.querySelector(`#tenSV${i}`).value,
+          tenSV: ethers.utils.formatBytes32String(
+            document.querySelector(`#tenSV${i}`).value
+          ),
         };
       }
       return record;
@@ -280,7 +304,9 @@ const Result = () => {
       if (i === index) {
         return {
           ...record,
-          tenMon: document.querySelector(`#tenMon${i}`).value,
+          tenMon: ethers.utils.formatBytes32String(
+            document.querySelector(`#tenMon${i}`).value
+          ),
         };
       }
       return record;
@@ -304,7 +330,9 @@ const Result = () => {
       if (i === index) {
         return {
           ...record,
-          tenGV: document.querySelector(`#tenGV${i}`).value,
+          tenGV: ethers.utils.formatBytes32String(
+            document.querySelector(`#tenGV${i}`).value
+          ),
         };
       }
       return record;
@@ -361,8 +389,11 @@ const Result = () => {
     let idGV = document.querySelector(`#idGV${i}`).value;
     idGV = Number(idGV);
     let tenMon = document.querySelector(`#tenMon${i}`).value;
+    let tenMon2 = ethers.utils.formatBytes32String(tenMon);
     let tenSV = document.querySelector(`#tenSV${i}`).value;
+    let tenSV2 = ethers.utils.formatBytes32String(tenSV);
     let tenGV = document.querySelector(`#tenGV${i}`).value;
+    let tenGV2 = ethers.utils.formatBytes32String(tenGV);
     let diemTH = document.querySelector(`#diemTH${i}`).value;
     diemTH = Number(diemTH);
     let diemGK = document.querySelector(`#diemGK${i}`).value;
@@ -370,39 +401,48 @@ const Result = () => {
     let diemCK = document.querySelector(`#diemCK${i}`).value;
     diemCK = Number(diemCK);
     let data = [
+      idRec,
       idLop,
-      tenMon,
+      tenMon2,
       idSV,
-      tenSV,
+      tenSV2,
       idGV,
-      tenGV,
+      tenGV2,
       diemTH,
       diemGK,
       diemCK,
     ];
-    await contract.updateRecById(
-      idRec,
-      idLop,
-      tenMon,
-      idSV,
-      tenSV,
-      idGV,
-      tenGV,
-      diemTH,
-      diemGK,
-      diemCK
-    );
-    toggleInput(id);
-    const newData = currentContractVal.map((record, index) => {
-      if (i === index) {
-        return {
-          ...record,
-          diemTB: (diemTH + diemGK + diemCK) / 3,
-        };
+    try {
+      await contract.updateRecById(
+        idRec,
+        idLop,
+        tenMon2,
+        idSV,
+        tenSV2,
+        idGV,
+        tenGV2,
+        diemTH,
+        diemGK,
+        diemCK
+      );
+      toggleInput(id);
+      const newData = currentContractVal.map((record, index) => {
+        if (i === index) {
+          return {
+            ...record,
+            diemTB: (diemTH + diemGK + diemCK) / 3,
+          };
+        }
+        return record;
+      });
+      setCurrentContractVal(newData);
+    } catch (error) {
+      if (error.code === 4001) {
+        console.log(`user rejected request`);
+      } else {
+        console.log(error);
       }
-      return record;
-    });
-    setCurrentContractVal(newData);
+    }
   };
 
   const deleteRecord1 = (id) => {
@@ -412,9 +452,11 @@ const Result = () => {
   return (
     <div className="container">
       <form onSubmit={getAll}>
-        <button className="btn btn-primary" type={"submit"}>
-          Get All
-        </button>
+        <div className="button2">
+          <button className="btn btn-primary" type={"submit"}>
+            Get All
+          </button>
+        </div>
       </form>
 
       <table className="table">
@@ -473,7 +515,7 @@ const Result = () => {
                       <input
                         id={`tenSV${i}`}
                         className="inputAddResult"
-                        value={record.tenSV}
+                        value={ethers.utils.parseBytes32String(record.tenSV)}
                         disabled={!disable.includes(record.idRec)}
                         size="10"
                         onChange={() => handleChangeTenSV(i)}
@@ -483,7 +525,7 @@ const Result = () => {
                       <input
                         id={`tenMon${i}`}
                         className="inputAddResult"
-                        value={record.tenMon}
+                        value={ethers.utils.parseBytes32String(record.tenMon)}
                         disabled={!disable.includes(record.idRec)}
                         size="10"
                         onChange={() => handleChangeTenMon(i)}
@@ -503,9 +545,9 @@ const Result = () => {
                       <input
                         id={`tenGV${i}`}
                         className="inputAddResult"
-                        value={record.tenGV}
+                        value={ethers.utils.parseBytes32String(record.tenGV)}
                         disabled={!disable.includes(record.idRec)}
-                        size="7"
+                        size="13"
                         onChange={() => handleChangeTenGV(i)}
                       />
                     </td>

@@ -1,11 +1,18 @@
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
+} */
+
+.manage {
+  margin: 18em;
 }
 
+.button1 {
+  margin: 1em 0 0 0;
+}
 /* .setRoleBtn {
   display: block;
   margin: 0.5em 0 0 0;

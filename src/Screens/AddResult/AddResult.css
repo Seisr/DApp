@@ -1,9 +1,10 @@
 button {
-  margin: 0.5em 0 0 0;
+  margin: 1em 0 0 0;
 }
 
 .addBatch {
   width: 170px;
+  margin: 0.5em 0 0 0;
 }
 .table {
   align-items: center;
